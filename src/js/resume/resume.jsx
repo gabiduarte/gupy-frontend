@@ -1,5 +1,10 @@
 import React from 'react';
+import ResumeList from './resumeList';
 
 export default props => (
-    <h1>Resumes page</h1>
+    <section>
+        <h1>Resume Page</h1>
+
+        <ResumeList/>
+    </section>
 )
