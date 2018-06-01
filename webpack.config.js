@@ -12,7 +12,7 @@ const cssPlugin = new ExtractTextPlugin('main.css');
 module.exports = {
 	module: {
 		rules: [{
-			test: /\.js$/,
+			test: /\.(js|jsx)$/,
 			exclude: /node_modules/,
 			use: {
 				loader: "babel-loader"
@@ -23,5 +23,9 @@ module.exports = {
 		}]
 	},
 	
-	plugins: [htmlPlugin, cssPlugin]
+	plugins: [htmlPlugin, cssPlugin],
+
+	resolve: {
+		extensions: ['*', '.js', '.jsx']
+	}
 };
