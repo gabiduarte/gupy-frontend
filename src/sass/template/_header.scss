@@ -1,0 +1,23 @@
+@import '../utils/variables';
+
+.header {
+    background-color: $turquoise;
+    padding: 1em;
+
+    & > ul {
+        list-style-type: none;
+    }
+
+    & li {
+        display: inline-block;
+    }
+
+    & li + li {
+        margin-left: 1em;
+    }
+
+    & a {
+        color: $white;
+        text-decoration: none;
+    }
+}
