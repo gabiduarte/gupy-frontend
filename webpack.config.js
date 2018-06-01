@@ -10,6 +10,10 @@ const htmlPlugin = new HtmlWebpackPlugin({
 const cssPlugin = new ExtractTextPlugin('main.css');
 
 module.exports = {
+	devServer: {
+		historyApiFallback: true,
+	},
+
 	module: {
 		rules: [{
 			test: /\.(js|jsx)$/,
