@@ -9,7 +9,7 @@ export default props => (
         <Switch>
             <Route exact path="/" component={Resume} />
             <Route exact path="/candidate" component={Candidate}/>
-            <Route path="*" component={Resume}/> fallback
+            <Route path="*" component={Resume}/>
         </Switch>
     </Router>
 )
