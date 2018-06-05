@@ -1,14 +1,12 @@
 import React from 'react';
-
-import './../sass/style.scss';
-
 import Routes from './routes';
 import Header from './template/header';
 
+import './../sass/style.scss';
 
 export default props => (
-    <main className="container">
+    <div>
         <Header/>
         <Routes/>
-    </main>
+    </div>
 )
