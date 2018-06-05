@@ -1,15 +1,19 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import CandidateForm from './candidateForm';
 
-export default class Candidate extends React.Component {
+import { addCandidate } from './candidateActions';
+
+class Candidate extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    
     handleSubmit(candidate) {
-        console.log(candidate);
+        this.props.addCandidate(candidate)
     }
 
     render() {
@@ -22,3 +26,6 @@ export default class Candidate extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({addCandidate}, dispatch);
+export default connect(null, mapDispatchToProps)(Candidate);

@@ -3,3 +3,4 @@ node_modules/
 *.log
 dist/
 CHALLENGE.md
+DEV_NOTES.md
