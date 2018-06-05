@@ -1,19 +1,6 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-
-const validate = values => {
-    const errors = {};
-
-    ['name', 'phone', 'email', 'address'].forEach((field) => {
-        if (!values[field]) errors[field] = 'Required';
-    })
-    
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid e-mail address';
-    }
-
-    return errors;
-}
+import { Field, FieldArray, reduxForm } from 'redux-form';
+import validate from '../helpers/formValidation';
 
 const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
@@ -26,6 +13,61 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
         </div>
     </div>
 )
+
+const renderProfessionalExperience = ({ fields }) => (
+    <ul>
+        <li>
+            <button type="button" onClick={() => fields.push({})}>Add Experience</button>
+        </li>
+
+        {fields.map((experience, index) =>
+            <li key={index}>
+                <button type="button" onClick={() => fields.remove(index)}>Remove Experience</button>
+
+                <h4>Experiencia #{index+1}</h4>
+                <Field name={`${experience}.companyName`} type="text" component={renderField} placeholder="Company Name"/>
+                <Field name={`${experience}.role`} type="text" component={renderField} placeholder="Role"/>
+                <Field name={`${experience}.startDate`} type="date" component={renderField} placeholder="Start Date"/>
+                <Field name={`${experience}.endDate`} type="date" component={renderField} placeholder="End Date"/>
+            </li>
+        )}
+    </ul>
+)
+
+const renderFormation = ({ fields }) => (
+    <ul>
+        <li>
+            <button type="button" onClick={() => fields.push({})}>Add Formation</button>
+        </li>
+
+        {fields.map((formation, index) =>
+            <li key={index}>
+                <button type="button" onClick={() => fields.remove(index)}>Remove Formation</button>
+
+                <h4>Education #{index+1}</h4>
+                <Field name={`${formation}.institution`} type="text" component={renderField} placeholder="Institution"/>
+                <Field name={`${formation}.course`} type="text" component={renderField} placeholder="Course"/>
+                <Field name={`${formation}.isConcluded`} type="checkbox" component={renderField} placeholder="Finish"/>
+                <Field name={`${formation}.startDate`} type="date" component={renderField} placeholder="Start Date"/>
+                <Field name={`${formation}.endDate`} type="date" component={renderField} placeholder="End Date"/>
+            </li>
+        )}
+    </ul>
+)
+
+const renderTags = ({ fields }) => (
+    <ul>
+      <li>
+        <button type="button" onClick={() => fields.push()}>Add tag</button>
+      </li>
+      {fields.map((tag, index) =>
+        <li key={index}>
+          <button type="button" onClick={() => fields.remove(index)}>Remove Tag</button>
+          <Field name={tag} type="text" component={renderField} placeholder={`Tag #${index + 1}`}/>
+        </li>
+      )}
+    </ul>
+  )
 
 const CandidateForm = props => {
     return (
@@ -70,15 +112,15 @@ const CandidateForm = props => {
                 </div>
 
                 <div>
-                    <Field name="tags" component={renderField} label="Tags" type="text" />
+                    <FieldArray name="tags" component={renderTags}/>
                 </div>
 
                 <div>
-                    <Field name="professionalExperience" component={renderField} label="Professional Experiences" type="text" />
+                    <FieldArray name="professionalExperience" component={renderProfessionalExperience}/>
                 </div>
 
                 <div>
-                    <Field name="formation" component={renderField} label="Education" type="text" />
+                    <FieldArray name="formation" component={renderFormation} />
                 </div>
 
                 <button type="submit">Submit</button>
