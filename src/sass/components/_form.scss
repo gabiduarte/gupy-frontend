@@ -55,6 +55,7 @@
     &__dynamic-unit {
         margin: 1em auto;
         padding: 1em;
+        width: 85%;
 
         & > .form__tag-input {
             width: 80%;
@@ -62,8 +63,8 @@
 
         &--tags {
             display: flex;
-            align-items: left;
             justify-content: space-between;
+            padding: 0;
         }
 
         &--highlight {
@@ -78,17 +79,34 @@
 
     &__dynamic-button {
         padding: 1em;
-        color: #FFF;
         display: block;
         margin: 2em auto;
 
         &--add {
-            background-color: $turquoise;
+            color: $blue;
+            border: 1px solid $blue;
         }
 
         &--remove {
-            background-color: $warning;
+            color: $warning;
+            border: 1px solid $warning;
         } 
+    }
+}
+
+@media (max-width: 600px) {
+    .form {
+        &__dynamic-unit {
+            width: 100%;
+
+            &--tags {
+                flex-wrap: wrap;
+            }
+
+            & > .form__tag-input {
+                width: 100%;
+            }
+        }
     }
 }
 
