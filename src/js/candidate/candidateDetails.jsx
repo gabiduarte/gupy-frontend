@@ -15,11 +15,11 @@ export default props => {
     }
 
     return (
-        <div>
+        <section className="container">
             <h2> Candidate Details </h2>
             {renderCandidates(props.candidate)}
 
             <Link to="/">Go to home page</Link>
-        </div>
+        </section>
     )
 }

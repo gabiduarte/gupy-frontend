@@ -2,15 +2,12 @@ import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import validate from '../helpers/formValidation';
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-    <div>
-        <label>{label}</label>
-        <div>
-            <input {...input} type={type} />
-            {touched &&
-            ((error && <span>{error}</span>) ||
-            (warning && <span>{warning}</span>))}
-        </div>
+const renderField = ({ input, label, type, className, meta: { touched, error, warning } }) => (
+    <div className={className}>
+        <label className="form__label">{label}</label>
+        <input {...input} type={type} className="form__input"/>
+        {touched &&
+        (error && <span className="form__error">{error}</span>)}
     </div>
 )
 
@@ -56,76 +53,61 @@ const renderFormation = ({ fields }) => (
 )
 
 const renderTags = ({ fields }) => (
-    <ul>
-      <li>
-        <button type="button" onClick={() => fields.push()}>Add tag</button>
-      </li>
-      {fields.map((tag, index) =>
-        <li key={index}>
-          <button type="button" onClick={() => fields.remove(index)}>Remove Tag</button>
-          <Field name={tag} type="text" component={renderField} placeholder={`Tag #${index + 1}`}/>
-        </li>
-      )}
-    </ul>
+    <div className="form__input-wrapper">
+        <label className="form__label">Tags</label>
+
+        <div className="tag">
+            <button type="button" className="tag__button tag__button--add" onClick={() => fields.push()}>Add new tag</button>
+
+            {fields.map((tag, index) =>
+                <div className="tag__unit" key={index}>
+                    <Field name={tag} type="text" component={renderField} placeholder={`Tag #${index + 1}`} className="tag__input"/>
+                    <button type="button" className="tag__button" onClick={() => fields.remove(index)}>Remove Tag</button>
+                </div>
+            )}
+        </div>
+    </div>
   )
 
 const CandidateForm = props => {
     return (
-        <div> 
-            <h2> Add a new Candidate </h2>
-            <form onSubmit={props.handleSubmit}>
-                <div>
-                    <Field name="name" component={renderField} label="Full Name" type="text" />
-                </div>
-                <div>
-                    <Field name="email" component={renderField} label="Email" type="email" />
+        <section className="container"> 
+            <h2 className="container__title"> Add a new Candidate </h2>
+            <form onSubmit={props.handleSubmit} className="form">
+                    <Field name="name" component={renderField} label="Full Name" type="text" className="form__input-wrapper"/>
+                    <Field name="email" component={renderField} label="Email" type="email" className="form__input-wrapper"/>
+
+                    <Field name="picture" component={renderField} label="Picture" type="text" className="form__input-wrapper"/>
+
+                <div className="form__2-col">
+                    <Field name="birthDate" component={renderField} label="Birth Date" type="date" className="form__input-wrapper"/>
+
+                    <div className="form__input-wrapper">
+                        <label className="form__label form__label--radio">Gender</label>                
+                        <label><Field name="gender" component={renderField} type="radio" value="male" className="form__radio-unit"/>Male</label>
+                        <label><Field name="gender" component={renderField} type="radio" value="female" className="form__radio-unit"/> Female</label>
+                    </div>
                 </div>
 
-                <div>
-                    <Field name="picture" component={renderField} label="Picture" type="text" />
+                    <Field name="phone" component={renderField} label="Telephone" type="number" className="form__input-wrapper"/>
+
+                    <Field name="address" component={renderField} label="Address" type="text" className="form__input-wrapper"/>
+
+                <div className="form__2-col">
+                    <Field name="latitude" component={renderField} label="Latitude" type="text" className="form__input-wrapper"/>
+
+                    <Field name="longitude" component={renderField} label="Longitude" type="text" className="form__input-wrapper"/>
                 </div>
 
-                <div>
-                    <Field name="birthDate" component={renderField} label="Birth Date" type="date" />
-                </div>
-
-                <div>
-                    <label>Gender</label>
-                    <label><Field name="gender" component={renderField} type="radio" value="male"/> Male</label>
-                    <label><Field name="gender" component={renderField} type="radio" value="female"/> Female</label>
-                </div>
-
-                <div>
-                    <Field name="phone" component={renderField} label="Telephone" type="number" />
-                </div>
-
-                <div>
-                    <Field name="address" component={renderField} label="Address" type="text" />
-                </div>
-
-                <div>
-                    <Field name="latitude" component={renderField} label="Latitude" type="text" />
-                </div>
-
-                <div>
-                    <Field name="longitude" component={renderField} label="Longitude" type="text" />
-                </div>
-
-                <div>
                     <FieldArray name="tags" component={renderTags}/>
-                </div>
 
-                <div>
                     <FieldArray name="professionalExperience" component={renderProfessionalExperience}/>
-                </div>
 
-                <div>
                     <FieldArray name="formation" component={renderFormation} />
-                </div>
 
                 <button type="submit">Submit</button>
             </form>
-        </div>
+        </section>
     )
 }
 
