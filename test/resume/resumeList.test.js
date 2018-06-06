@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResumeList } from '../../src/js/resume/resumeList';
 
-import { configure, mount, debug } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });

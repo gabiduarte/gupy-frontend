@@ -4,36 +4,30 @@ import { connect } from 'react-redux';
 
 import CandidateForm from './candidateForm';
 import CandidateDetails from './candidateDetails';
-import If from '../template/if';
 
 import { addCandidate } from './candidateActions';
 
-class Candidate extends Component {
+export class Candidate extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.hasCandidateAdded = this.hasCandidateAdded.bind(this);
     }
     
     handleSubmit(candidate) {
         this.props.addCandidate(candidate)
     }
 
-    hasCandidateAdded() {
-        return this.props.candidateList.length > 0;
-    }
-
     render() {
-        return (
-            <section>
-                <If show={!this.hasCandidateAdded()}>
-                    <CandidateForm onSubmit={this.handleSubmit}/>
-                </If>
+        const hasCandidateAdded = this.props.candidateList.length > 0;
 
-                <If show={this.hasCandidateAdded()}>
-                    <CandidateDetails candidate={this.props.candidateList}/>
-                </If>
-            </section>
+        if (hasCandidateAdded) {
+            return (
+                <CandidateDetails candidate={this.props.candidateList}/>
+            )
+        }
+
+        return (
+            <CandidateForm onSubmit={this.handleSubmit}/>
         )
     }
 }
