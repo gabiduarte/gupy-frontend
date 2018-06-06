@@ -1,0 +1,82 @@
+@import '../utils/variables';
+
+.form {
+    &__input-wrapper {
+        margin: 2em auto;
+    }
+
+    &__radio-unit {
+        display: inline-block;
+        margin: 0.2em 1em;
+    }
+
+    &__input {
+        font-size: 13px;
+        width: 100%;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        border: 1px solid $input-border-color;
+    }
+
+    &__error {
+        color: $form-error-color;
+        font-size: 11px;
+    }
+
+    &__label--radio {
+        display: block;
+
+    }
+
+    &__2-col {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > .form__input-wrapper {
+            margin: 0;
+            width: 49%;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .form {
+        &__2-col {
+            flex-wrap: wrap;
+        }
+        &__2-col > &__input-wrapper {
+            width: 100%;
+            margin: 0.5em auto;
+        }
+
+        &__2-col + &__input-wrapper {
+            margin-top: 1em;
+        }
+    }
+}
+
+//TAG
+
+.tag {
+    &__unit {
+        margin: 1em auto;
+        display: flex;
+        align-items: left;
+        justify-content: space-between;
+
+        & > .tag__input {
+            width: 80%;
+        }
+    }
+    &__button {
+        padding: 1em;
+
+        &--add {
+            background-color: $turquoise;
+            color: $white;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}

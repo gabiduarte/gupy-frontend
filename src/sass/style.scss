@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 @import 'template/header',
-	'utils/reset';
+        'template/container',
+        'utils/reset',
+        'components/form';
 
 body {
     font-family: 'Lato', sans-serif;
