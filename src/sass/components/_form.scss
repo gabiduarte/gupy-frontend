@@ -5,38 +5,90 @@
         margin: 2em auto;
     }
 
-    &__radio-unit {
-        display: inline-block;
-        margin: 0.2em 1em;
-    }
-
     &__input {
-        font-size: 13px;
+        font-size: 14px;
         width: 100%;
-        padding: 0.5em;
+        padding: 1em;
+        margin-top: 1em;
         border-radius: 0.5em;
         border: 1px solid $input-border-color;
     }
 
-    &__error {
-        color: $form-error-color;
-        font-size: 11px;
-    }
-
     &__label--radio {
         display: block;
+    }
 
+    &__radio-unit {
+        display: inline-block;
+        margin: 1em;
+    }
+
+    &__error {
+        color: $warning;
+        font-size: 11px;
     }
 
     &__2-col {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
 
         & > .form__input-wrapper {
             margin: 0;
             width: 49%;
         }
+    }
+
+    &__submit {
+        background-color: $turquoise;
+        color: $white;
+        font-weight: bold;
+        padding: 1em;
+        font-size: 15px;
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    //dynamic fields
+
+    &__dynamic-unit {
+        margin: 1em auto;
+        padding: 1em;
+
+        & > .form__tag-input {
+            width: 80%;
+        }
+
+        &--tags {
+            display: flex;
+            align-items: left;
+            justify-content: space-between;
+        }
+
+        &--highlight {
+            border: 1px solid $unit-border-color;
+        }
+
+        &-label {
+            text-align: center;
+            margin: 1em;
+        }
+    }
+
+    &__dynamic-button {
+        padding: 1em;
+        color: #FFF;
+        display: block;
+        margin: 2em auto;
+
+        &--add {
+            background-color: $turquoise;
+        }
+
+        &--remove {
+            background-color: $warning;
+        } 
     }
 }
 
@@ -47,36 +99,10 @@
         }
         &__2-col > &__input-wrapper {
             width: 100%;
-            margin: 0.5em auto;
         }
 
-        &__2-col + &__input-wrapper {
-            margin-top: 1em;
-        }
-    }
-}
-
-//TAG
-
-.tag {
-    &__unit {
-        margin: 1em auto;
-        display: flex;
-        align-items: left;
-        justify-content: space-between;
-
-        & > .tag__input {
-            width: 80%;
-        }
-    }
-    &__button {
-        padding: 1em;
-
-        &--add {
-            background-color: $turquoise;
-            color: $white;
-            display: block;
-            margin: 0 auto;
+        & .form__input-wrapper + .form__input-wrapper {
+            margin-top: 2em;
         }
     }
 }

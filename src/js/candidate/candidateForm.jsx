@@ -12,57 +12,72 @@ const renderField = ({ input, label, type, className, meta: { touched, error, wa
 )
 
 const renderProfessionalExperience = ({ fields }) => (
-    <ul>
-        <li>
-            <button type="button" onClick={() => fields.push({})}>Add Experience</button>
-        </li>
+    <div className="form__input-wrapper">
+        <label className="form__label">Professional Experiences</label>
 
-        {fields.map((experience, index) =>
-            <li key={index}>
-                <button type="button" onClick={() => fields.remove(index)}>Remove Experience</button>
+        <div>
+            <button type="button" className="form__dynamic-button form__dynamic-button--add" onClick={() => fields.push({})}>Add Experience</button>
+            
+            {fields.map((experience, index) =>
+                <div className="form__dynamic-unit form__dynamic-unit--highlight" key={index}>
 
-                <h4>Experiencia #{index+1}</h4>
-                <Field name={`${experience}.companyName`} type="text" component={renderField} placeholder="Company Name"/>
-                <Field name={`${experience}.role`} type="text" component={renderField} placeholder="Role"/>
-                <Field name={`${experience}.startDate`} type="date" component={renderField} placeholder="Start Date"/>
-                <Field name={`${experience}.endDate`} type="date" component={renderField} placeholder="End Date"/>
-            </li>
-        )}
-    </ul>
+                    <h4 className="form__dynamic-unit-label">Experience #{index+1}</h4>
+                    <Field name={`${experience}.companyName`} label="Company Name" type="text" component={renderField} className="form__input-wrapper"/>
+                    <Field name={`${experience}.role`} label="Role" type="text" component={renderField} className="form__input-wrapper"/>
+
+                    <div className="form__2-col">
+                        <Field name={`${experience}.startDate`} label="Start Date" type="date" component={renderField} className="form__input-wrapper"/>
+                        <Field name={`${experience}.endDate`} label="End Date" type="date" component={renderField} className="form__input-wrapper"/>
+                    </div>
+
+                    <button type="button" className="form__dynamic-button form__dynamic-button--remove" onClick={() => fields.remove(index)}>Remove this experience</button>
+                </div>
+            )}
+        </div>
+    </div>
 )
 
 const renderFormation = ({ fields }) => (
-    <ul>
-        <li>
-            <button type="button" onClick={() => fields.push({})}>Add Formation</button>
-        </li>
+    <div className="form__input-wrapper">
+        <label className="form__label">Education</label>
 
-        {fields.map((formation, index) =>
-            <li key={index}>
-                <button type="button" onClick={() => fields.remove(index)}>Remove Formation</button>
+        <div>
+            <button type="button" className="form__dynamic-button form__dynamic-button--add" onClick={() => fields.push({})}>Add Education</button>
+            
+            {fields.map((formation, index) =>
+                <div className="form__dynamic-unit form__dynamic-unit--highlight" key={index}>
 
-                <h4>Education #{index+1}</h4>
-                <Field name={`${formation}.institution`} type="text" component={renderField} placeholder="Institution"/>
-                <Field name={`${formation}.course`} type="text" component={renderField} placeholder="Course"/>
-                <Field name={`${formation}.isConcluded`} type="checkbox" component={renderField} placeholder="Finish"/>
-                <Field name={`${formation}.startDate`} type="date" component={renderField} placeholder="Start Date"/>
-                <Field name={`${formation}.endDate`} type="date" component={renderField} placeholder="End Date"/>
-            </li>
-        )}
-    </ul>
+                    <h4 className="form__dynamic-unit-label">Education #{index+1}</h4>
+                    <Field name={`${formation}.institution`} label="Institution" type="text" component={renderField} className="form__input-wrapper"/>
+                    <Field name={`${formation}.course`} label="Course" type="text" component={renderField} className="form__input-wrapper"/>
+                    
+                    <div className="form__2-col">
+                        <Field name={`${formation}.startDate`} label="Start Date" type="date" component={renderField} className="form__input-wrapper"/>
+                        <Field name={`${formation}.endDate`} label="End Date" type="date" component={renderField} className="form__input-wrapper"/>
+                    </div>
+
+                    <Field name={`${formation}.isConcluded`} label="Finished" type="checkbox" component={renderField} className="form__input-wrapper"/>
+
+                    <button type="button" className="form__dynamic-button form__dynamic-button--remove" onClick={() => fields.remove(index)}>Remove Education</button>
+
+                </div>
+            )}
+        </div>
+    </div>
+    
 )
 
 const renderTags = ({ fields }) => (
     <div className="form__input-wrapper">
         <label className="form__label">Tags</label>
 
-        <div className="tag">
-            <button type="button" className="tag__button tag__button--add" onClick={() => fields.push()}>Add new tag</button>
+        <div>
+            <button type="button" className="form__dynamic-button form__dynamic-button--add" onClick={() => fields.push()}>Add new tag</button>
 
             {fields.map((tag, index) =>
-                <div className="tag__unit" key={index}>
-                    <Field name={tag} type="text" component={renderField} placeholder={`Tag #${index + 1}`} className="tag__input"/>
-                    <button type="button" className="tag__button" onClick={() => fields.remove(index)}>Remove Tag</button>
+                <div className="form__dynamic-unit form__dynamic-unit--tags" key={index}>
+                    <Field name={tag} type="text" component={renderField} placeholder={`Tag #${index + 1}`} className="form__tag-input"/>
+                    <button type="button" className="form__dynamic-button form__dynamic-button--remove" onClick={() => fields.remove(index)}>Remove Tag</button>
                 </div>
             )}
         </div>
@@ -74,10 +89,9 @@ const CandidateForm = props => {
         <section className="container"> 
             <h2 className="container__title"> Add a new Candidate </h2>
             <form onSubmit={props.handleSubmit} className="form">
-                    <Field name="name" component={renderField} label="Full Name" type="text" className="form__input-wrapper"/>
-                    <Field name="email" component={renderField} label="Email" type="email" className="form__input-wrapper"/>
-
-                    <Field name="picture" component={renderField} label="Picture" type="text" className="form__input-wrapper"/>
+                <Field name="name" component={renderField} label="Full Name" type="text" className="form__input-wrapper"/>
+                <Field name="email" component={renderField} label="Email" type="email" className="form__input-wrapper"/>
+                <Field name="picture" component={renderField} label="Picture (URL)" type="text" className="form__input-wrapper"/>
 
                 <div className="form__2-col">
                     <Field name="birthDate" component={renderField} label="Birth Date" type="date" className="form__input-wrapper"/>
@@ -89,23 +103,19 @@ const CandidateForm = props => {
                     </div>
                 </div>
 
-                    <Field name="phone" component={renderField} label="Telephone" type="number" className="form__input-wrapper"/>
-
-                    <Field name="address" component={renderField} label="Address" type="text" className="form__input-wrapper"/>
+                <Field name="phone" component={renderField} label="Telephone" type="number" className="form__input-wrapper"/>
+                <Field name="address" component={renderField} label="Address" type="text" className="form__input-wrapper"/>
 
                 <div className="form__2-col">
                     <Field name="latitude" component={renderField} label="Latitude" type="text" className="form__input-wrapper"/>
-
                     <Field name="longitude" component={renderField} label="Longitude" type="text" className="form__input-wrapper"/>
                 </div>
 
-                    <FieldArray name="tags" component={renderTags}/>
+                <FieldArray name="tags" component={renderTags}/>
+                <FieldArray name="professionalExperience" component={renderProfessionalExperience}/>
+                <FieldArray name="formation" component={renderFormation} />
 
-                    <FieldArray name="professionalExperience" component={renderProfessionalExperience}/>
-
-                    <FieldArray name="formation" component={renderFormation} />
-
-                <button type="submit">Submit</button>
+                <button type="submit" className="form__submit">Submit</button>
             </form>
         </section>
     )
