@@ -1,15 +1,25 @@
 @import '../utils/variables';
 
 .header {
-    background-color: $turquoise;
+    background: linear-gradient(to right, $turquoise , $blue);
+    box-shadow: 0px 1px 3px 1px rgba(192,192,192,1);
     padding: 1em;
+    list-style-type: none;
+    display: block; 
 
-    & > ul {
-        list-style-type: none;
+    &__logo {
+        height: 2em;
+        margin: 0 2em;
+    }
+
+    &__links {
+        display: inline;
     }
 
     & li {
         display: inline-block;
+        vertical-align: super;
+        font-weight: bold;
     }
 
     & li + li {
@@ -19,5 +29,20 @@
     & a {
         color: $white;
         text-decoration: none;
+    }
+}
+
+@media (max-width: 450px) {
+    .header {
+        &__links {
+            display: flex;
+            justify-content: center;
+        }
+
+        &__logo {
+            display: block;
+            height: 2em;
+            margin: 1em auto;
+        }
     }
 }
