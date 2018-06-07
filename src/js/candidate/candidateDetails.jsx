@@ -24,7 +24,7 @@ export default props => {
                     </div>
 
                     <div className="timeline__information">
-                        {knowledge[activity] || ''} at {knowledge[institution] || ''}
+                        {knowledge[activity]} at {knowledge[institution]}
                     </div>
                 </div>
             )
