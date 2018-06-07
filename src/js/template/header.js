@@ -1,8 +1,6 @@
 import React from 'react';
 import logo from '../../../img/gupy_logo.png';
 
-
-
 export default props => (
     <header className="header">
         <ul>
