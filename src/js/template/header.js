@@ -3,9 +3,7 @@ import logo from '../../../img/gupy_logo.png';
 
 
 
-export default props => {
-    console.log(logo);
-    return(
+export default props => (
     <header className="header">
         <ul>
             <img className="header__logo" src={logo} />
@@ -16,4 +14,4 @@ export default props => {
             </div>
         </ul>
     </header>
-)}
+)
