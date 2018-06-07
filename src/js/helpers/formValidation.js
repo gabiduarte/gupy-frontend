@@ -1,3 +1,21 @@
+const validateFieldArray = (fieldArrayPropertyValue, fieldsToValidateInsideArray) => {
+    const fieldArrayErrors = [];
+
+    fieldArrayPropertyValue.forEach((item, index) => {
+        const itemErrors = {};
+
+        fieldsToValidateInsideArray.forEach((field) => {
+            if (!item[field]) {
+                itemErrors[field] = 'Required';
+                fieldArrayErrors[index] = itemErrors;
+            }
+        });
+    });
+
+    return fieldArrayErrors.length ? fieldArrayErrors : {};
+}
+
+
 const validate = values => {
     const errors = {};
 
@@ -10,65 +28,11 @@ const validate = values => {
     }
 
     if (values.professionalExperiences) {
-        const professionalExperiencesErrors = [];
-
-        values.professionalExperiences.forEach((experience, experienceIndex) => {
-            const experienceErrors = {};
-
-            if (!experience || !experience.companyName) {
-              experienceErrors.companyName = 'Required';
-              professionalExperiencesErrors[experienceIndex] = experienceErrors;
-            }
-            if (!experience || !experience.role) {
-              experienceErrors.role = 'Required'
-              professionalExperiencesErrors[experienceIndex] = experienceErrors;
-            }
-    
-            if (!experience || !experience.startDate) {
-                experienceErrors.startDate = 'Required'
-                professionalExperiencesErrors[experienceIndex] = experienceErrors;
-              }
-    
-              if (!experience || !experience.endDate) {
-                experienceErrors.endDate = 'Required'
-                professionalExperiencesErrors[experienceIndex] = experienceErrors;
-              }
-          })
-    
-          if (professionalExperiencesErrors.length) {
-            errors.professionalExperiences = professionalExperiencesErrors;
-          }
+        errors.professionalExperiences = validateFieldArray(values.professionalExperiences, ['companyName', 'role', 'startDate', 'endDate']);
     }
 
     if (values.formations) {
-        const formationsErrors = [];
-
-        values.formations.forEach((formation, formationIndex) => {
-            const formationErrors = {};
-
-            if (!formation || !formation.institution) {
-              formationErrors.institution = 'Required';
-              formationsErrors[formationIndex] = formationErrors;
-            }
-            if (!formation || !formation.course) {
-              formationErrors.course = 'Required'
-              formationsErrors[formationIndex] = formationErrors;
-            }
-    
-            if (!formation || !formation.startDate) {
-                formationErrors.startDate = 'Required'
-                formationsErrors[formationIndex] = formationErrors;
-              }
-    
-              if (!formation || !formation.endDate) {
-                formationErrors.endDate = 'Required'
-                formationsErrors[formationIndex] = formationErrors;
-              }
-          })
-    
-          if (formationsErrors.length) {
-            errors.formations = formationsErrors;
-          }
+        errors.formations = validateFieldArray(values.formations, ['institution', 'course', 'startDate', 'endDate']);
     }
 
     return errors;
