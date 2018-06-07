@@ -112,8 +112,8 @@ const CandidateForm = props => {
                 </div>
 
                 <FieldArray name="tags" component={renderTags}/>
-                <FieldArray name="professionalExperience" component={renderProfessionalExperience}/>
-                <FieldArray name="formation" component={renderFormation} />
+                <FieldArray name="professionalExperiences" component={renderProfessionalExperience}/>
+                <FieldArray name="formations" component={renderFormation} />
 
                 <button type="submit" className="form__submit">Submit</button>
             </form>

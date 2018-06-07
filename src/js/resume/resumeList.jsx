@@ -3,16 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchResumes } from './resumeActions';
+import convertTimestampToReadableDate from '../helpers/convertTimestampToDate';
 
 export class ResumeList extends Component {
     componentWillMount() {
         this.props.fetchResumes();
-    }
-
-    convertTimestampToReadableDate(timestamp) {
-        const dateObject = new Date(timestamp.split(" ")[0]);
-
-        return `${dateObject.getDate()}/${dateObject.getMonth() + 1}/${dateObject.getFullYear()}`;
     }
 
     capitalize(word) {
@@ -31,9 +26,9 @@ export class ResumeList extends Component {
 
                 <div className="timeline__entry" key={index}>
                     <div className="timeline__date">
-                        <p>{this.convertTimestampToReadableDate(knowledge.startDate)} </p>
+                        <p>{convertTimestampToReadableDate(knowledge.startDate)} </p>
                         &#8226;
-                        <p>{this.convertTimestampToReadableDate(knowledge.endDate)}</p>
+                        <p>{convertTimestampToReadableDate(knowledge.endDate)}</p>
                     </div>
 
                     <div className="timeline__information">
@@ -62,12 +57,12 @@ export class ResumeList extends Component {
                                 <div className="resume__person-detail">
                                     <img src={resume.picture} className="resume__picture"/>
                                     <small className="resume__gender">{this.capitalize(resume.gender)}</small>
-                                    <small className="resume__birth-date">Born in {this.convertTimestampToReadableDate(resume.birthDate)}</small>
+                                    <small className="resume__birth-date">Born in {convertTimestampToReadableDate(resume.birthDate)}</small>
                                 </div>
                                 
                                 <div className="resume__information">
                                     <h3 className="resume__name">{resume.name}</h3>
-                                    <small className="resume__created-at">Added on {this.convertTimestampToReadableDate(resume.createdAt)}</small>
+                                    <small className="resume__created-at">Added on {convertTimestampToReadableDate(resume.createdAt)}</small>
                                     
                                     <a className="resume__email" href={`mailto:${resume.email}`}>{resume.email}</a>
                                     <p className="resume__telephone">{resume.phone}</p>

@@ -7,6 +7,8 @@ import CandidateDetails from './candidateDetails';
 
 import { addCandidate } from './candidateActions';
 
+import { cleanArrayOfEmptyObjects, cleanArrayOfUndefinedValues } from '../helpers/cleanArray';
+
 export class Candidate extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +16,12 @@ export class Candidate extends Component {
     }
     
     handleSubmit(candidate) {
-        this.props.addCandidate(candidate)
+        const cleanCandidate = {...candidate,
+            tags: cleanArrayOfUndefinedValues(candidate.tags),
+            professionalExperiences: cleanArrayOfEmptyObjects(candidate.professionalExperiences),
+            formations: cleanArrayOfEmptyObjects(candidate.formations)}
+        
+        this.props.addCandidate(cleanCandidate);
     }
 
     render() {
